@@ -1,108 +1,82 @@
 #include <iostream>
 using namespace std;
 
-// Display array
-void display(float arr[], int n)
-{
-    for(int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-
+void display(float arr[], int n) {
+    for (int i = 0; i < n ; i ++)
+    cout << arr[i] << " ";
     cout << endl;
+
 }
 
-// Selection Sort
-void selectionSort(float arr[], int n)
-{
-    for(int i = 0; i < n - 1; i++)
-    {
-        int minIndex = i;
+//Selection Sort 
 
-        for(int j = i + 1; j < n; j++)
-        {
-            if(arr[j] < arr[minIndex])
-                minIndex = j;
+void SelectionSort(float arr[], int n) {
+    for ( int i = 0; i < n-1; i++) {
+        int minindex = i;
+
+        for(int j = i+1; j < n; j++) {
+            if(arr[j] < arr[minindex])
+                minindex = j;
         }
 
         float temp = arr[i];
-        arr[i] = arr[minIndex];
-        arr[minIndex] = temp;
+        arr[i] = arr[minindex];
+        arr[minindex] = temp;
     }
+
 }
 
-// Bubble Sort
-void bubbleSort(float arr[], int n)
-{
-    for(int i = 0; i < n - 1; i++)
-    {
+void BubbleSort (float arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
         bool swapped = false;
-
-        for(int j = 0; j < n - i - 1; j++)
-        {
-            if(arr[j] > arr[j + 1])
-            {
+        for (int j=0; j<n-i-1; j++) {
+            if(arr[j] > arr[j+1]) {
                 float temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
                 swapped = true;
+                }
             }
+
+            if (!swapped)
+                break;
         }
-
-        if(!swapped)
-            break;
     }
-}
 
-// Display top five scores
-void topFive(float arr[], int n)
-{
-    cout << "Top five scores: ";
+void TopFive(float arr[], int n){
+    cout << "top five scores: ";
+    int limit = n < 5 ? n : 5;
 
-    int limit = (n < 5) ? n : 5;
-
-    for(int i = n - 1; i >= n - limit; i--)
+    for ( int i = n-1; i >= n-limit; i--) {
         cout << arr[i] << " ";
-
+    }
     cout << endl;
 }
 
-int main()
-{
+int main() {
     int n;
     float arr[100], copy[100];
+    cout << "enter no. of students: ";
+    cin >> n;
 
-    cout << "Enter number of students: ";
-
-    if(!(cin >> n) || n < 1 || n > 100)
-    {
-        cout << "Invalid number of students!";
+    if( n< 0 || n > 100) {
+        cout << "invalid";
         return 0;
     }
 
-    cout << "Enter first year percentages:\n";
+    cout << "enter marks: ";
 
-    for(int i = 0; i < n; i++)
-    {
-        if(!(cin >> arr[i]) ||
-           arr[i] < 0 || arr[i] > 100)
-        {
-            cout << "Invalid percentage!";
+    for (int i =0; i < n; i++) {
+        if (arr[i] < 0 || arr[i] > 100) {
+            cout << "invalid";
             return 0;
         }
-
         copy[i] = arr[i];
     }
 
-    selectionSort(arr, n);
-
-    cout << "\nSelection Sort (Ascending): ";
+    SelectionSort(arr, n);
+    cout << "sorted marks: ";
     display(arr, n);
-    topFive(arr, n);
-
-    bubbleSort(copy, n);
-
-    cout << "\nBubble Sort (Ascending): ";
-    display(copy, n);
-    topFive(copy, n);
-
-    return 0;
+    TopFive(arr, n);
+    
 }
